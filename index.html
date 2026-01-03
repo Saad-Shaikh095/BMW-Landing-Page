@@ -1,75 +1,308 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BMW M8 Competition | Power Meets Luxury</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+  <title>BMW M8 Competition | Power Unleashed</title>
   <style>
+    /* Reset & Base */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: 'Inter', sans-serif;
-      scroll-behavior: smooth;
+      font-family: 'Inter', -apple-system, sans-serif;
       background-color: #000;
       color: #fff;
       overflow-x: hidden;
+      scroll-behavior: smooth;
     }
-    .font-luxury {
-      font-family: 'Playfair Display', serif;
+
+    /* M-Color Variables */
+    :root {
+      --m-blue: #0066b1;
+      --m-sky: #00a0e3;
+      --m-red: #e30613;
+      --zinc-900: #18181b;
+      --zinc-800: #27272a;
     }
-    .m-gradient {
-      background: linear-gradient(90deg, #0066b1 0%, #00a0e3 33%, #2c2c2c 66%, #e30613 100%);
+
+    /* Typography */
+    h1, h2, h3 { font-weight: 900; font-style: italic; text-transform: uppercase; letter-spacing: -0.05em; }
+    p { color: #a1a1aa; line-height: 1.6; }
+
+    /* Layout Utility */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    .m-stripe { height: 4px; background: linear-gradient(90deg, var(--m-blue) 0%, var(--m-sky) 33%, #fff 33.1%, #fff 66%, var(--m-red) 66.1%); }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 1.5rem 0;
+      z-index: 1000;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
     }
-    .glass-effect {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+    .nav-flex { display: flex; justify-content: space-between; items: center; }
+    .logo { font-size: 1.5rem; font-weight: 900; }
+    .logo span { color: var(--m-blue); }
+    .nav-links a { text-decoration: none; color: #fff; font-size: 0.75rem; font-weight: 700; margin-left: 2rem; text-transform: uppercase; letter-spacing: 0.1em; transition: 0.3s; }
+    .nav-links a:hover { color: var(--m-sky); }
+
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      width: 100%;
+      background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1617531653332-bd46c24f2068?auto=format&fit=crop&q=80&w=2500');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      position: relative;
     }
-    .m-text-shadow {
-      text-shadow: 0 4px 15px rgba(0,0,0,0.8);
+    .hero-content { animation: slideUp 1s ease-out; }
+    .hero h1 { font-size: 6rem; line-height: 0.9; margin-bottom: 2rem; }
+    .hero h1 span { color: transparent; -webkit-text-stroke: 1px #fff; }
+    .btn {
+      display: inline-block;
+      padding: 1.25rem 2.5rem;
+      background: #fff;
+      color: #000;
+      text-decoration: none;
+      font-weight: 900;
+      text-transform: uppercase;
+      font-size: 0.875rem;
+      transition: 0.3s;
+      border: none;
+      cursor: pointer;
     }
-    .skew-section {
-      transform: skewY(-3deg);
-      margin-top: -50px;
-    }
-    .skew-content {
-      transform: skewY(3deg);
-    }
+    .btn:hover { background: var(--m-blue); color: #fff; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.4); }
+    .btn-outline { background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fff; margin-left: 1rem; }
+    .btn-outline:hover { background: rgba(255,255,255,0.1); }
+
+    /* Speed Lines Animation */
     @keyframes speedLine {
       0% { transform: translateX(-100%); opacity: 0; }
-      50% { opacity: 0.5; }
-      100% { transform: translateX(200%); opacity: 0; }
+      50% { opacity: 0.3; }
+      100% { transform: translateX(300%); opacity: 0; }
     }
     .speed-line {
       position: absolute;
+      width: 300px;
       height: 1px;
       background: linear-gradient(90deg, transparent, #fff, transparent);
-      width: 300px;
-      animation: speedLine 2s infinite linear;
+      animation: speedLine 3s infinite linear;
     }
-    .glow-blue {
-      box-shadow: 0 0 30px rgba(0, 102, 177, 0.4);
+
+    /* Stats Section */
+    .stats { padding: 8rem 0; background: #000; position: relative; }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+    .stat-card {
+      background: var(--zinc-900);
+      padding: 3rem 2rem;
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: 0.4s;
+      position: relative;
+      overflow: hidden;
     }
-    .text-italic-speed {
+    .stat-card:hover { border-color: var(--m-sky); transform: scale(1.02); }
+    .stat-card h4 { font-size: 0.7rem; color: #52525b; margin-bottom: 1rem; letter-spacing: 0.2em; }
+    .stat-card p.val { font-size: 3.5rem; font-weight: 900; font-style: italic; margin-bottom: 0.5rem; }
+    .stat-card p.desc { font-size: 0.75rem; font-weight: 600; color: #71717a; }
+    .stat-card::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 3px; background: var(--m-blue); transition: 0.4s; }
+    .stat-card:hover::after { width: 100%; }
+
+    /* Performance Section */
+    .performance { padding: 8rem 0; background: var(--zinc-950); transform: skewY(-3deg); margin: 4rem 0; }
+    .perf-inner { transform: skewY(3deg); display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .perf-img { width: 100%; height: 500px; object-fit: cover; border-radius: 4px; box-shadow: 0 30px 60px rgba(0,0,0,0.5); }
+    .perf-content h2 { font-size: 4rem; margin-bottom: 2rem; }
+    .perf-content p { font-size: 1.1rem; margin-bottom: 2rem; }
+
+    /* Gallery */
+    .gallery { padding: 8rem 0; }
+    .gallery h2 { text-align: center; font-size: 3rem; margin-bottom: 4rem; }
+    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .gallery-item { position: relative; overflow: hidden; height: 300px; background: #111; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.7s; }
+    .gallery-item:hover img { transform: scale(1.1) rotate(1deg); filter: brightness(0.6); }
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: 0.3s;
+      font-weight: 900;
       font-style: italic;
-      letter-spacing: -0.05em;
+      letter-spacing: 0.1em;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+    /* Footer */
+    footer { padding: 6rem 0 3rem; border-top: 1px solid rgba(255,255,255,0.05); }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 4rem; margin-bottom: 4rem; }
+    .footer-col h5 { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.2em; margin-bottom: 2rem; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 1rem; }
+    .footer-col a { color: #52525b; text-decoration: none; transition: 0.3s; font-size: 0.875rem; }
+    .footer-col a:hover { color: #fff; }
+    .copyright { color: #3f3f46; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 2rem; display: flex; justify-content: space-between; }
+
+    /* Animations */
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 3.5rem; }
+      .stats-grid, .perf-inner, .gallery-grid, .footer-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
     }
   </style>
-<script type="importmap">
-{
-  "imports": {
-    "react": "https://esm.sh/react@^19.2.3",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "@google/genai": "https://esm.sh/@google/genai@^1.34.0"
-  }
-}
-</script>
 </head>
 <body>
-  <div id="root"></div>
+
+  <nav>
+    <div class="container nav-flex">
+      <div class="logo">BMW <span>M8</span></div>
+      <div class="nav-links">
+        <a href="#performance">Performance</a>
+        <a href="#stats">Telemetry</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#">Configurator</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="speed-line" style="top: 20%; left: -10%;"></div>
+    <div class="speed-line" style="top: 70%; left: 40%; animation-delay: 1s;"></div>
+    <div class="container">
+      <div class="hero-content">
+        <p style="color: var(--m-sky); font-weight: 800; letter-spacing: 0.4em; margin-bottom: 1rem; text-transform: uppercase;">The Pinnacle of M</p>
+        <h1>UNLEASH THE<br><span>BMW M8</span></h1>
+        <div class="btn-group">
+          <a href="#" class="btn">Experience Power</a>
+          <a href="#" class="btn btn-outline">Watch Film</a>
+        </div>
+      </div>
+    </div>
+    <div style="position: absolute; right: 0; top: 0; bottom: 0; width: 6px;" class="m-stripe"></div>
+  </section>
+
+  <section id="stats" class="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h4>ENGINE</h4>
+          <p class="val">V8</p>
+          <p class="desc">TWIN-POWER TURBO</p>
+        </div>
+        <div class="stat-card">
+          <h4>POWER</h4>
+          <p class="val">617</p>
+          <p class="desc">HP COMPETITION PACK</p>
+        </div>
+        <div class="stat-card">
+          <h4>SPRINT</h4>
+          <p class="val">3.2S</p>
+          <p class="desc">0-100 KM/H LAUNCH</p>
+        </div>
+        <div class="stat-card">
+          <h4>TORQUE</h4>
+          <p class="val">750</p>
+          <p class="desc">NM PEAK OUTPUT</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="performance" class="performance">
+    <div class="container">
+      <div class="perf-inner">
+        <img src="https://i.pinimg.com/1200x/cd/3e/6d/cd3e6d91b959f55335dcbda0f85e8271.jpg" alt="BMW M8 Stance" class="perf-img">
+        <div class="perf-content">
+          <h2>BORN ON THE <span style="color: var(--m-red)">TRACK.</span></h2>
+          <p>Every line of the BMW M8 Competition is an expression of absolute performance. From the wide stance to the carbon-fiber roof, it is engineered to dominate both the road and the racetrack.</p>
+          <p style="color: #fff; font-weight: 700;">Includes M-Specific xDrive, Active M Differential, and Carbon Ceramic Brakes.</p>
+          <a href="#" class="btn" style="background: var(--m-blue); color: #fff;">Discover Dynamics</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery" class="gallery">
+    <div class="container">
+      <h2>M8 VISUALS.</h2>
+      <div class="gallery-grid">
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1617531653332-bd46c24f2068?auto=format&fit=crop&q=80&w=1200" alt="M8 Front">
+          <div class="gallery-overlay">AERODYNAMICS</div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://i.pinimg.com/1200x/3c/7a/78/3c7a785b74ef2a603a2065afe3058325.jpg" alt="M8 Side">
+          <div class="gallery-overlay">M PERFORMANCE</div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://i.pinimg.com/1200x/2e/30/92/2e309231271bdc7d344da6f8939abcc8.jpg" alt="M8 Interior">
+          <div class="gallery-overlay">LUXURY COCKPIT</div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://i.pinimg.com/1200x/b6/ac/26/b6ac26e6ddbcf4adc924c95083089f45.jpg" alt="M8 Rear">
+          <div class="gallery-overlay">QUAD EXHAUST</div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://i.pinimg.com/736x/74/7d/b2/747db2f9dedf98eb92eeedbd8472fbf3.jpg" alt="M8 Detail">
+          <div class="gallery-overlay">CARBON FIBER</div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://i.pinimg.com/1200x/01/66/ac/0166ac51b9dfb5254cdb3a14d9c55a6e.jpg" alt="M8 Lights">
+          <div class="gallery-overlay">LASERLIGHT</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background: #111; padding: 10rem 0; text-align: center;">
+    <div class="container">
+      <h2 style="font-size: 5rem; margin-bottom: 3rem;">THE LIMIT IS A <span style="color: var(--m-blue)">MYTH.</span></h2>
+      <a href="#" class="btn" style="padding: 2rem 5rem; font-size: 1.2rem;">Book Test Flight</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="logo" style="margin-bottom: 2rem;">BMW <span>M8</span></div>
+          <p>The ultimate expression of power and luxury. M Power is not just a brand, it is a statement of uncompromising engineering.</p>
+        </div>
+        <div class="footer-col">
+          <h5>Experience</h5>
+          <ul>
+            <li><a href="#">M Driving School</a></li>
+            <li><a href="#">BMW Individual</a></li>
+            <li><a href="#">Track Events</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Support</h5>
+          <ul>
+            <li><a href="#">Find Dealer</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Safety</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        <div>&copy; 2024 BMW M DIVISION. SHEER DRIVING PLEASURE.</div>
+        <div>PRIVACY POLICY | COOKIES | LEGAL</div>
+      </div>
+    </div>
+  </footer>
+
 </body>
 </html>
