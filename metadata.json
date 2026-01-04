@@ -1,7 +1,0 @@
-{
-  "name": "BMW M8 Competition - The Ultimate Driving Machine",
-  "description": "An immersive luxury landing page for the BMW M8 Competition, featuring high-performance specifications, an interactive gallery, and a Gemini-powered AI Concierge.",
-  "requestFramePermissions": [
-    "microphone"
-  ]
-}
